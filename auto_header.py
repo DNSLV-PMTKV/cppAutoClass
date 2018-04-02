@@ -1,5 +1,7 @@
 import sys
 
+print("Creating file..")
+
 c_argv = sys.argv[1]
 
 param_count = 0
@@ -26,7 +28,7 @@ header.write("\nclass {} \n{}\n".format(c_argv, "{"))
 header.write("public:\n")
 
 # big5
-header.write("\t{}();\n".format(c_argv))  # defualt constructor
+header.write("\t{}();\n".format(c_argv))                    # defualt constructor
 header.write("\t{}(".format(c_argv))                        # constructor
 for a in range(0, param_count - 1):                         #
     if a < param_count - 2:                                 # with
@@ -34,7 +36,7 @@ for a in range(0, param_count - 1):                         #
     else:                                                   # parameters
         header.write("{});\n".format(type_list[a]))         #
 header.write("\t{}(const {} &);\n".format(c_argv, c_argv))  # copy
-header.write("\t~{}();\n".format(c_argv))  # desctructor
+header.write("\t~{}();\n".format(c_argv))                   # desctructor
 header.write("\t{}&operator=(const {} &);\n\n". format(c_argv, c_argv))  # = overload
 
 # set
@@ -56,3 +58,5 @@ header.write("\n{};\n".format("}"))
 header.write("#endif\n")
 
 header.close()
+
+print("File created.")
