@@ -1,6 +1,8 @@
 import sys
 import os
 
+print("Creating file..")
+
 c_argv = sys.argv[1]
 
 param_count = 0
@@ -16,14 +18,14 @@ for num, arg in enumerate(sys.argv[1:]):
     else:
         param_list.append(arg)
 
-newpath = r"NewFolder\ "
+newpath = r"{}\ ".format(c_argv)
 if not os.path.exists(newpath):
     os.makedirs(newpath)
 
-cpp = open('NewFolder/{}.cpp'.format(c_argv), 'w')
+cpp = open('{}/{}.cpp'.format(c_argv, c_argv), 'w')
 
 cpp.write('#include "{}.h"\n'.format(c_argv))
-cpp.write('#include <iosream>\n\n')
+cpp.write('#include <iostream>\n\n')
 
 # big5
 cpp.write('{}::{}(): '.format(c_argv, c_argv))
@@ -51,3 +53,7 @@ for counter in range(0, param_count - 1):
 # get
 for counter in range(0, param_count - 1):
     cpp.write("{} {}::get{}() const\n{}\n\n{}\n".format(type_list[counter], c_argv, param_list[counter + 1].upper(), "{", "}"))
+
+cpp.close()
+
+print("File created.")

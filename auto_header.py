@@ -1,4 +1,5 @@
 import sys
+import os
 
 print("Creating file..")
 
@@ -17,7 +18,11 @@ for num, arg in enumerate(sys.argv[1:]):
     else:
         param_list.append(arg)
 
-header = open('{}.h'.format(c_argv), 'w')
+newpath = r"{}\ ".format(c_argv)
+if not os.path.exists(newpath):
+    os.makedirs(newpath)
+
+header = open('{}/{}.h'.format(c_argv, c_argv), 'w')
 # first part
 header.write("#ifndef _{}_H\n".format(c_argv.upper()))
 header.write("#define _{}_H\n".format(c_argv.upper()))
@@ -45,7 +50,7 @@ for counter in range(0, param_count - 1):
 
 # get
 for counter in range(0, param_count - 1):
-    header.write("\n\t{} get{} const;".format(type_list[counter], param_list[counter + 1].upper()))
+    header.write("\n\t{} get{}() const;".format(type_list[counter], param_list[counter + 1].upper()))
 
 
 # private
